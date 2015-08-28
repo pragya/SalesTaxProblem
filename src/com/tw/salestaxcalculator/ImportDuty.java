@@ -1,5 +1,7 @@
 package com.tw.salestaxcalculator;
 
+import java.math.BigDecimal;
+
 public class ImportDuty {
     private final String commodityName;
     private final Double price;
@@ -10,10 +12,10 @@ public class ImportDuty {
     }
 
     public double calculateTax() {
-        if(this.imported()) {
-            return roundToNearestPointZeroFive((5 * price) / 100);
+        if(!this.imported()) {
+            return 0.0;
         }
-        return 0.0;
+        return roundToNearestPointZeroFive(0.05 * price);
     }
 
     private boolean imported() {
@@ -21,7 +23,7 @@ public class ImportDuty {
     }
 
     private double roundToNearestPointZeroFive(double amount) {
-        return Math.round(amount * 20.0) / 20.0;
+        return Math.ceil(amount * 20.0) / 20.0;
     }
 
 }
